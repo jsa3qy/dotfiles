@@ -19,7 +19,7 @@ My personal dotfiles for macOS.
 On a fresh Mac, clone this repo and run the install script:
 
 ```bash
-git clone https://github.com/jessealloy/dotfiles.git ~/dotfiles
+git clone https://github.com/jsa3qy/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
