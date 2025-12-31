@@ -1,0 +1,9 @@
+# OS files
+.DS_Store
+
+# Backup files created by install script
+*.backup
+
+# Local overrides (create these for machine-specific config)
+.zshrc.local
+.gitconfig.local
