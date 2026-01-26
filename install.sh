@@ -25,9 +25,14 @@ fi
 echo "Installing Homebrew packages..."
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
-# Install Oh My Zsh if not present
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
+# Install Oh My Zsh if not present or incomplete
+if [ ! -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
     echo "Installing Oh My Zsh..."
+    # Remove incomplete installation if it exists
+    if [ -d "$HOME/.oh-my-zsh" ]; then
+        echo "Removing incomplete Oh My Zsh installation..."
+        rm -rf "$HOME/.oh-my-zsh"
+    fi
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
