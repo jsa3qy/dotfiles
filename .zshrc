@@ -138,6 +138,29 @@ setopt PUSHD_SILENT             # Don't print directory stack
 setopt CORRECT                  # Command correction
 setopt CORRECT_ALL              # Argument correction
 
-# Git aliases
-# Configure git aliases on shell startup
-git config --global alias.amend 'commit --amend --no-edit' 2>/dev/null || true
+# Environment variables (update with your values)
+export LINEAR_API_KEY=""  # Set your Linear API key
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+export PATH="$HOME/go/bin:$PATH"
+
+# Aliases
+alias gcom="git checkout main && git pull"
+
+# Delete local branches whose PRs have been merged
+git-clean-merged() {
+  local current_branch=$(git branch --show-current)
+  local branches=$(git branch --format='%(refname:short)' | grep -vE '^(main|master)$')
+
+  for branch in ${(f)branches}; do
+    [[ "$branch" == "$current_branch" ]] && continue
+
+    # Check if there's a merged PR for this branch
+    local pr_state=$(gh pr list --head "$branch" --state merged --json state --jq '.[0].state' 2>/dev/null)
+
+    if [[ "$pr_state" == "MERGED" ]]; then
+      echo "Deleting $branch (PR merged)"
+      git branch -D "$branch"
+    fi
+  done
+}
