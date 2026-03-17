@@ -7,3 +7,4 @@
 # Local overrides (create these for machine-specific config)
 .zshrc.local
 .gitconfig.local
+.secrets

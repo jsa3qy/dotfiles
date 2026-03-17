@@ -143,9 +143,34 @@ export LINEAR_API_KEY=""  # Set your Linear API key
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 export PATH="$HOME/go/bin:$PATH"
+# Source secrets (API keys, tokens, etc.)
+[ -f ~/.secrets ] && source ~/.secrets
 
 # Aliases
 alias gcom="git checkout main && git pull"
+
+# AWS SSO login picker
+aws-login() {
+  local profiles=($(aws configure list-profiles 2>/dev/null | grep -v '^default$'))
+  if [[ ${#profiles[@]} -eq 0 ]]; then
+    echo "No AWS profiles found in ~/.aws/config"
+    return 1
+  fi
+  echo "AWS Profiles:"
+  for i in {1..${#profiles[@]}}; do
+    echo "  $i) ${profiles[$i]}"
+  done
+  echo ""
+  read "choice?Select profile (1-${#profiles[@]}): "
+  if [[ "$choice" -ge 1 && "$choice" -le ${#profiles[@]} ]]; then
+    local profile="${profiles[$choice]}"
+    echo "Logging in to $profile..."
+    aws sso login --profile "$profile"
+  else
+    echo "Invalid selection"
+    return 1
+  fi
+}
 
 # Delete local branches whose PRs have been merged
 git-clean-merged() {
