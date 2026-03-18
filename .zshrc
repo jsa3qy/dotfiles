@@ -149,6 +149,14 @@ export PATH="$HOME/go/bin:$PATH"
 # Aliases
 alias gcom="git checkout main && git pull"
 
+# Machine identity in prompt
+case "$(scutil --get ComputerName 2>/dev/null)" in
+  *Mac[Mm]ini*|*mac[Mm]ini*) _MACHINE_TAG="%F{cyan}[mini]%f " ;;
+  *MacBook*|*macbook*)        _MACHINE_TAG="%F{magenta}[laptop]%f " ;;
+  *)                          _MACHINE_TAG="%F{yellow}[$(hostname -s)]%f " ;;
+esac
+PROMPT="${_MACHINE_TAG}${PROMPT}"
+
 # AWS SSO login picker
 aws-login() {
   local profiles=($(aws configure list-profiles 2>/dev/null | grep -v '^default$'))
