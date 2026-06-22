@@ -143,6 +143,7 @@ export LINEAR_API_KEY=""  # Set your Linear API key
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"  # claude CLI and other user-installed binaries
 # Source secrets (API keys, tokens, etc.)
 [ -f ~/.secrets ] && source ~/.secrets
 
