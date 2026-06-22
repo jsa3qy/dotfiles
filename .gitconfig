@@ -1,4 +1,5 @@
 [user]
+	name = Jesse Alloy
 	email = jessealloy@gmail.com
 [alias]
 	amend = "!git add -A && git commit --amend --no-edit"
