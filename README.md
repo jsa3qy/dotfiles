@@ -48,3 +48,22 @@ brew bundle dump --force
 ```
 
 Then commit and push the changes.
+
+## Codex on the Mac Mini
+
+Install the Mini-only Codex wrapper on both Macs:
+
+```bash
+./install-codex-mini.sh
+```
+
+Then run this from a directory that exists at the same path on both machines:
+
+```bash
+codex --mini
+```
+
+The Codex TUI runs locally while a tmux-backed `codex app-server` and all tool
+execution stay on the Mini. If SSH drops, the backend survives; rerun the same
+command from the same terminal to reconnect. Use `--session <name>` when you
+want an explicit reconnectable session name.
