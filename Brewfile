@@ -4,7 +4,6 @@ brew "gh"
 brew "node@20", link: true
 brew "shc"
 brew "terraform"
-cask "claude-code"
 cask "ngrok"
 cask "visual-studio-code"
 vscode "4ops.terraform"
